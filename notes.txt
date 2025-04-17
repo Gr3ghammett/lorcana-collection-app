@@ -1,0 +1,19 @@
+deckbuilding workshop.  Animate with parts of a workshop and a guided deck construction
+	- maybe free form or guided options for the user?
+	- ink bottles for ink at the workstation that can be clicked on or off (depending on rules [constructed or simulated limited])
+
+
+
+
+
+./start.sh - starts web server instance
+
+from lorcana folder to start the app's specific python3 environment
+
+┌──(greg㉿kalisurface)-[~/lorcana]
+└─$ source venv/bin/activate
+
+                                                                                                                   
+┌──(venv)─(greg㉿kalisurface)-[~/lorcana]
+└─$ 
+

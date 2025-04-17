@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Editing Deck: {{ deck.name }}{% endblock %}
+
+{% block content %}
+<h1>Editing Deck: {{ deck.name }}</h1>
+<p><strong>Deck file:</strong> <code>{{ deck_file }}</code></p>
+
+<!-- Deck format selector -->
+<form method="post" action="/workshop/set_format/{{ deck_file }}">
+  <label for="format">Deck Format:</label>
+  <select name="format" id="format">
+    <option value="constructed" {% if deck.format == "constructed" %}selected{% endif %}>Constructed</option>
+    <option value="limited" {% if deck.format == "limited" %}selected{% endif %}>Limited</option>
+  </select>
+  <button type="submit">Set Format</button>
+</form>
+
+<hr>
+
+<h2>Cards in this deck</h2>
+{% if deck.cards %}
+  <ul>
+    {% for card in deck.cards %}
+    <li>
+      {{ card.name }} — x{{ card.count }}
+
+      <form method="post" action="/workshop/update_card/{{ deck_file }}" style="display:inline;">
+        <input type="hidden" name="card_name" value="{{ card.name }}">
+        <input type="hidden" name="action" value="increment">
+        <button type="submit">➕</button>
+      </form>
+
+      <form method="post" action="/workshop/update_card/{{ deck_file }}" style="display:inline;">
+        <input type="hidden" name="card_name" value="{{ card.name }}">
+        <input type="hidden" name="action" value="decrement">
+        <button type="submit">➖</button>
+      </form>
+
+      <form method="post" action="/workshop/update_card/{{ deck_file }}" style="display:inline;">
+        <input type="hidden" name="card_name" value="{{ card.name }}">
+        <input type="hidden" name="action" value="remove">
+        <button type="submit">🗑️</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No cards yet.</p>
+{% endif %}
+
+<hr>
+
+<h2>Add Card to Deck</h2>
+<form method="post" action="/workshop/add_card/{{ deck_file }}">
+  <label for="card_name">Card:</label>
+  <input list="card_list" name="card_name" id="card_name" placeholder="Start typing..." required>
+  <datalist id="card_list">
+    {% for card in catalogue %}
+      <option value="{{ card.name }}">{{ card.name }}{% if card.owned > 0 %} ({{ card.owned }} owned){% endif %}</option>
+    {% endfor %}
+  </datalist>
+
+  <label for="count">Count:</label>
+  <input type="number" name="count" value="1" min="1">
+
+  <button type="submit">Add</button>
+</form>
+
+<a href="/workshop">← Back to Workshop</a>
+{% endblock %}

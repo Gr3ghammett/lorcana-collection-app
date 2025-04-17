@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}The Tome of Glimmers{% endblock %}
+
+{% block content %}
+<h1>The Tome</h1>
+<p>All known Lorcana cards pulled from the eternal archives.</p>
+
+<form method="get" action="/tome" class="filter-form">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search by name or text...">
+
+  <select name="ink">
+    <option value="">All Inks</option>
+    {% for color in ["Amber", "Amethyst", "Emerald", "Ruby", "Sapphire", "Steel"] %}
+      <option value="{{ color }}" {% if filters.ink == color %}selected{% endif %}>{{ color }}</option>
+    {% endfor %}
+  </select>
+
+  <select name="cost">
+    <option value="">Any Cost</option>
+    {% for i in range(0, 10) %}
+      <option value="{{ i }}" {% if filters.cost == i|string %}selected{% endif %}>Cost {{ i }}</option>
+    {% endfor %}
+  </select>
+
+  <select name="inkable">
+    <option value="">Inkable?</option>
+    <option value="yes" {% if filters.inkable == 'yes' %}selected{% endif %}>Yes</option>
+    <option value="no" {% if filters.inkable == 'no' %}selected{% endif %}>No</option>
+  </select>
+
+  <input type="text" name="set_name" value="{{ filters.set_name }}" placeholder="Set (e.g. Rise of the Floodborn)">
+  <input type="text" name="rarity" value="{{ filters.rarity }}" placeholder="Rarity (e.g. Rare)">
+  <input type="text" name="card_type" value="{{ filters.card_type }}" placeholder="Card Type (e.g. Action)">
+  <input type="text" name="keyword" value="{{ filters.keyword }}" placeholder="Keyword (e.g. Evasive)">
+  <input type="text" name="creature_type" value="{{ filters.creature_type }}" placeholder="Creature Type (e.g. Inventor)">
+
+  <label><input type="checkbox" name="only_owned" value="1" {% if filters.only_owned %}checked{% endif %}> Owned</label>
+  <label><input type="checkbox" name="only_wish" value="1" {% if filters.only_wish %}checked{% endif %}> Wished</label>
+  <label><input type="checkbox" name="only_fav" value="1" {% if filters.only_fav %}checked{% endif %}> Favorites</label>
+
+  <button type="submit">Apply Filters</button>
+</form>
+
+<hr>
+
+{% if cards %}
+<div class="card-grid">
+  {% for card in cards %}
+  {% set cdata = collection.get(card.id|string, {}) %}
+  <div class="card-block" style="opacity: {{ '1.0' if cdata.count|default(0) > 0 else '0.4' }};">
+    {% if card.image_url %}
+      <img src="{{ card.image_url }}" alt="{{ card.name }}" width="150">
+    {% endif %}
+    <h3>{{ card.name }}</h3>
+    <p><strong>Cost:</strong> {{ card.cost or '?' }}</p>
+    <p><strong>Inkable:</strong> {{ 'Yes' if card.inkable else 'No' }}</p>
+    <p>{{ card.rules_text or '' }}</p>
+
+    <p>
+      <strong>Owned:</strong> {{ cdata.count or 0 }}
+      {% if cdata.wish %} ❤️{% endif %}
+      {% if cdata.favorite %} ⭐{% endif %}
+    </p>
+
+    <form method="post" action="/tome/update" style="display:inline;">
+      <input type="hidden" name="id" value="{{ card.id }}">
+      <input type="hidden" name="action" value="increment">
+      <button type="submit">➕</button>
+    </form>
+
+    <form method="post" action="/tome/update" style="display:inline;">
+      <input type="hidden" name="id" value="{{ card.id }}">
+      <input type="hidden" name="action" value="decrement">
+      <button type="submit">➖</button>
+    </form>
+
+    <form method="post" action="/tome/update" style="display:inline;">
+      <input type="hidden" name="id" value="{{ card.id }}">
+      <input type="hidden" name="action" value="toggle_wish">
+      <button type="submit">❤️</button>
+    </form>
+
+    <form method="post" action="/tome/update" style="display:inline;">
+      <input type="hidden" name="id" value="{{ card.id }}">
+      <input type="hidden" name="action" value="toggle_favorite">
+      <button type="submit">⭐</button>
+    </form>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No cards found with the selected filters.</p>
+{% endif %}
+{% endblock %}

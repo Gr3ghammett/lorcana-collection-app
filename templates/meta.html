@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Meta Decks{% endblock %}
+
+{% block content %}
+<h1>Top Meta Decks</h1>
+<p>These decks were fetched from popular competitive sources and can be copied into your Workshop for testing or editing.</p>
+
+{% if decks %}
+  <ul>
+    {% for deck in decks %}
+    <li>
+      <h3>{{ deck.name }}</h3>
+      <p><strong>Source:</strong> {{ deck.source }} | <strong>Last Fetched:</strong> {{ deck.last_fetched }}</p>
+      <p><strong>Cards:</strong></p>
+      <ul>
+        {% for card in deck.cards %}
+        <li>{{ card.name }} — x{{ card.count }}</li>
+        {% endfor %}
+      </ul>
+      <form method="post" action="/meta/copy_to_workshop">
+        <input type="hidden" name="deck_file" value="{{ deck.filename }}">
+        <button type="submit">📥 Copy to Workshop</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No meta decks available yet. You can trigger a fetch from the backend or wait for the next scheduled update.</p>
+{% endif %}
+
+<a href="/workshop">← Back to Workshop</a>
+{% endblock %}

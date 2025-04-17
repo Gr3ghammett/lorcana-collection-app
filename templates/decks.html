@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Decks{% endblock %}
+
+{% block content %}
+  <h1>Meta Decks</h1>
+  <p>These are sample decks based on the current competitive meta.</p>
+
+  {% for deck in decks %}
+    <div class="deck-card">
+      <h2>{{ deck.name }}</h2>
+      <p><strong>Type:</strong> {{ deck.type }}</p>
+      <h3>Key Cards:</h3>
+      <ul>
+        {% for card in deck.cards %}
+          <li>{{ card }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+{% endblock %}

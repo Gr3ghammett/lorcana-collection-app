@@ -1,0 +1,89 @@
+body {
+  background-color: #1e1e2f;
+  color: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  background-color: #2a2a3f;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+h1, h2 {
+  color: #ffd700;
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 4px;
+  border: none;
+  background-color: #444459;
+  color: #ffffff;
+}
+
+button {
+  background-color: #008cba;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005f7a;
+}
+
+img {
+  margin-top: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+.topnav {
+  background-color: #141428;
+  padding: 10px 20px;
+  display: flex;
+  gap: 20px;
+  border-bottom: 2px solid #ffd700;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  justify-content: center;
+}
+
+.topnav a {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.topnav a:hover {
+  text-shadow: 0 0 5px #ffd700;
+}
+
+.deck-card {
+  background-color: #1b1b2f;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ffd700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card-block {
+  background-color: #252542;
+  border: 1px solid #ffd700;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+}

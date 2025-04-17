@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}My Lorcana Vault{% endblock %}
+
+{% block content %}
+  <h1>Lorcana Collection Vault</h1>
+
+  <form method="get" action="/">
+    <label>Search your collection:</label><br>
+    <input type="text" name="q" value="{{ query }}" placeholder="Search cards...">
+    <button type="submit">Search</button>
+  </form>
+
+  <hr>
+
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <label>Upload Card Image:</label><br>
+    <input type="file" name="image"><br><br>
+
+    <label>Or Paste OCR Text:</label><br>
+    <textarea name="ocr_text" rows="6" cols="40"></textarea><br><br>
+
+    <button type="submit">Add Card</button>
+  </form>
+
+  <hr>
+
+  <h2>Your Collection</h2>
+  {% if cards %}
+    <ul>
+      {% for card in cards %}
+        <li>
+          {% if card.filename %}
+            <img src="{{ card.filename }}" alt="Card Image" width="150"><br>
+          {% endif %}
+          <pre>{{ card.ocr_text }}</pre>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No cards added yet.</p>
+  {% endif %}
+{% endblock %}

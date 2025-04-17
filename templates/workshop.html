@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Workshop Bench{% endblock %}
+
+{% block content %}
+<h1>Workshop Bench</h1>
+<p>This is your space to build, edit, and test decks.</p>
+
+<form method="post" action="/workshop/create" style="margin-bottom: 1em;">
+  <input type="text" name="deck_name" placeholder="New Deck Name" required>
+  <button type="submit">Create Deck</button>
+</form>
+
+<h2>Existing Decks</h2>
+<ul>
+  {% for deck in decks %}
+    <li>
+      {{ deck }}
+      <!-- later: add buttons for Edit | Clone | Delete -->
+    </li>
+  {% else %}
+    <li>No decks created yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

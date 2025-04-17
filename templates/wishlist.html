@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Wishlist{% endblock %}
+
+{% block content %}
+  <h1>My Wishlist</h1>
+
+  <form action="/wishlist" method="post">
+    <label>Add a card you want:</label><br>
+    <input type="text" name="card_name" placeholder="Card Name" required>
+    <button type="submit">Add to Wishlist</button>
+  </form>
+
+  <hr>
+
+  {% if wishlist %}
+    <ul>
+      {% for card in wishlist %}
+        <li>{{ card }}</li>
+      {% endfor %}
+    </ul
