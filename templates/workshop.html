@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}The Workbench{% endblock %}
+{% block content %}
+<h1>Workbench</h1>
+<ul>
+  {% for deck in decks %}
+    <li><a href="/workshop/edit/{{ deck }}">{{ deck }}</a></li>
+  {% endfor %}
+</ul>
+<form method="post" action="/workshop/create">
+  <input type="text" name="deck_name" placeholder="New Deck Name" required>
+  <button type="submit">Create Deck</button>
+</form>
+{% endblock %}

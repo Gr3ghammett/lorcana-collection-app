@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}The Tome of Glimmers{% endblock %}
+{% block content %}
+<h1>The Tome</h1>
+<p>All known Lorcana cards pulled from the eternal archives.</p>
+<form method="get" action="/tome" class="filter-form">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search by name or text...">
+  <!-- Filters omitted here for brevity -->
+  <button type="submit">Apply Filters</button>
+</form>
+<hr>
+{% if cards %}
+<div class="card-grid">
+  {% for card in cards %}
+  <div class="card-block">
+    {% if card.image_url %}
+      <img src="{{ card.image_url }}" alt="{{ card.name }}" width="150">
+    {% endif %}
+    <h3>{{ card.name }}</h3>
+    <p><strong>Cost:</strong> {{ card.cost or '?' }}</p>
+    <p><strong>Inkable:</strong> {{ 'Yes' if card.inkable else 'No' }}</p>
+    <p>{{ card.rules_text or '' }}</p>
+    <form method="post" action="/tome/update">
+      <input type="hidden" name="id" value="{{ card.id }}">
+      <button name="action" value="increment">➕</button>
+      <button name="action" value="decrement">➖</button>
+      <button name="action" value="toggle_wish">💖</button>
+      <button name="action" value="toggle_favorite">⭐</button>
+    </form>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No cards found with the selected filters.</p>
+{% endif %}
+{% endblock %}

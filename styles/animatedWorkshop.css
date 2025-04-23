@@ -1,0 +1,35 @@
+.fine-table-bg {
+  position: relative;
+  background: radial-gradient(circle at 20% 20%, #ffe4b5 0%, #f0f0ff 100%);
+  background-size: 200% 200%;
+  animation: shimmer 30s ease-in-out infinite;
+  overflow: auto;
+}
+
+.fine-table-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/textures/parchment-overlay.png");
+  background-repeat: repeat;
+  background-size: cover;
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.fine-table-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/textures/parchment-frame.png") center center no-repeat;
+  background-size: contain;
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.fine-table-bg > * {
+  position: relative;
+  z-index: 1;
+}

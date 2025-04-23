@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Enter the Workshop{% endblock %}
+{% block content %}
+<div class="door-screen">
+  <img src="/static/door.png" alt="Workshop Doors" class="door-img">
+  <button class="enter-button" onclick="enterWorkshop()">Enter The Workshop</button>
+</div>
+<script>
+function enterWorkshop() {
+  document.querySelector('.door-screen').classList.add('opening');
+  setTimeout(() => { window.location.href = "/workshop"; }, 2000);
+}
+</script>
+{% endblock %}

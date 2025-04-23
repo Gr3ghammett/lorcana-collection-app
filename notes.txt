@@ -1,0 +1,18 @@
+Add enhancements to tome:
+- Show owned count
+- Highlight wishlist / favorite
+- Dim cards not collected
+
+Workbench:
+- Build decks with draggable UI
+- Show full card catalogue, overlay collection count
+- Pile groups and sorting
+
+Meta Decks:
+- Pull once per month, or on user request
+- Store in /meta
+- Use for comparison with collection
+
+Animations:
+- Door opens on load
+- Magical white glow → Workshop fades in

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Lorcana Uploads{% endblock %}
+{% block content %}
+<h1>Your Scanned Cards</h1>
+<form action="/upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="image">
+  <input type="text" name="ocr_text" placeholder="Optional OCR text">
+  <button type="submit">Upload</button>
+</form>
+<ul>
+  {% for card in cards %}
+    <li>
+      {{ card.ocr_text }} <br>
+      <img src="{{ card.filename }}" width="100">
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

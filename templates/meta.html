@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Meta Decks{% endblock %}
+{% block content %}
+<h1>Meta Decks</h1>
+<ul>
+  {% for deck in meta_decks %}
+    <li>{{ deck }}</li>
+  {% endfor %}
+</ul>
+<form method="post" action="/meta/fetch">
+  <button type="submit">Fetch Latest Meta Decks</button>
+</form>
+{% endblock %}
